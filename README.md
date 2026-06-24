@@ -30,6 +30,8 @@ PythonのWebフレームワーク(Flask)をベースに構築
 
 
 webアプリ開き方
+
+
 ①仮想環境を作る
 python3 -m venv venv
 もし、エラーが出たら、
