@@ -27,7 +27,29 @@
 
 ```
 PythonのWebフレームワーク(Flask)をベースに構築
-git add .
-git commit -m "flask app"
-git push origin main
+
+
+webアプリ開き方
+
+
+①仮想環境を作る
+python3 -m venv venv
+もし、エラーが出たら、
+sudo apt install python3-venv
+を実行してから、もう一度
+python3 -m venv venv
+を実行。
+
+
+②仮想環境を有効化
+source venv/bin/activate
+成功すると、先頭に(venv)
+
+
+③Flaskを入れる
+pip install flask
+
+
+④アプリを起動する
+python3 app.py
 
