@@ -1,64 +1,63 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="ja">
 <head>
-
-<title>インシデント一覧</title>
-
-<link rel="stylesheet"
-href="{{ url_for('static', filename='style.css') }}">
-
+    <meta charset="UTF-8">
+    <title>インシデント管理システム</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+<body style="font-family: sans-serif; margin: 40px; background-color: #f4f6f9;">
 
-<body>
+    <h1>インシデント管理システム</h1>
+    
+    <p>
+        <a href="/add" style="background-color: #007bff; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px;">➕ 新規インシデント登録</a>
+    </p>
 
-<h1>インシデント一覧</h1>
+    {% if repeated_incidents %}
+    <div style="background-color: #ffcccc; color: #cc0000; padding: 15px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #cc0000;">
+        <strong>⚠️ 警告: 繰り返し発生しているインシデント（2回以上）があります！</strong>
+        <ul style="margin: 5px 0 0 20px;">
+            {% for title, count in repeated_incidents %}
+                <li>「<strong>{{ title }}</strong>」が現在 <strong>{{ count }}回</strong> 発生しています。再発防止策が必要です。</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
-<a href="/add">新規登録</a>
+    <div style="margin-bottom: 15px; background-color: #fff; padding: 10px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <strong>並び替え:</strong>
+        <a href="/?sort=date_desc" style="margin-left: 10px; {% if current_sort == 'date_desc' %}font-weight: bold; color: black;{% endif %}">日付の新しい順</a> | 
+        <a href="/?sort=date_asc" style="margin-left: 5px; {% if current_sort == 'date_asc' %}font-weight: bold; color: black;{% endif %}">日付の古い順</a> | 
+        <a href="/?sort=level_desc" style="margin-left: 5px; {% if current_sort == 'level_desc' %}font-weight: bold; color: black;{% endif %}">重要度の高い順</a>
+    </div>
 
-<table>
-
-<tr>
-
-<th>日付</th>
-
-<th>タイトル</th>
-
-<th>重要度</th>
-
-<th>詳細</th>
-
-<th>操作</th>
-
-</tr>
-
-{% for i in incidents %}
-
-<tr>
-
-<td>{{ i[1] }}</td>
-
-<td>{{ i[2] }}</td>
-
-<td>{{ i[3] }}</td>
-
-<td>{{ i[4] }}</td>
-
-<td>
-
-<a href="/edit/{{ i[0] }}">編集</a>
-
-<a href="/delete/{{ i[0] }}">削除</a>
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</table>
+    <table border="1" style="border-collapse: collapse; width: 100%; background-color: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <tr style="background-color: #e9ecef;">
+            <th style="padding: 10px; width: 15%;">発生日</th>
+            <th style="padding: 10px; width: 15%;">場所</th>
+            <th style="padding: 10px; width: 25%;">件名（内容）</th>
+            <th style="padding: 10px; width: 15%;">重要度</th>
+            <th style="padding: 10px; width: 20%;">詳細</th>
+            <th style="padding: 10px; width: 10%;">操作</th>
+        </tr>
+        {% for incident in incidents %}
+        <tr style="text-align: center;">
+            <td style="padding: 10px;">{{ incident[1] }}</td> <td style="padding: 10px;">{{ incident[2] }}</td> <td style="padding: 10px; text-align: left;">{{ incident[3] }}</td> <td style="padding: 10px;">
+                {% if incident[4] == '重大' %}
+                    <span style="background-color: #ffcccc; color: #cc0000; padding: 4px 8px; border-radius: 4px; font-weight: bold;">{{ incident[4] }}</span>
+                {% elif incident[4] == '中' %}
+                    <span style="background-color: #fff3cd; color: #856404; padding: 4px 8px; border-radius: 4px; font-weight: bold;">{{ incident[4] }}</span>
+                {% else %}
+                    <span style="background-color: #d4edda; color: #155724; padding: 4px 8px; border-radius: 4px; font-weight: bold;">{{ incident[4] }}</span>
+                {% endif %}
+            </td>
+            <td style="padding: 10px; text-align: left;">{{ incident[5] }}</td> <td style="padding: 10px;">
+                <a href="/edit/{{ incident[0] }}" style="color: #007bff; text-decoration: none; margin-right: 10px;">編集</a>
+                <a href="/delete/{{ incident[0] }}" style="color: #dc3545; text-decoration: none;" onclick="return confirm('本当に削除しますか？')">削除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
 </body>
-
 </html>

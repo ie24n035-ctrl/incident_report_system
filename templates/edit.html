@@ -1,56 +1,49 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="ja">
 <head>
-
-<title>編集</title>
-
+    <meta charset="UTF-8">
+    <title>インシデント編集</title>
 </head>
+<body style="font-family: sans-serif; margin: 40px; background-color: #f4f6f9;">
 
-<body>
+    <h1>✏️ インシデントの編集</h1>
+    <p><a href="/" style="color: #007bff; text-decoration: none;">⬅️ キャンセルして一覧に戻る</a></p>
 
-<h1>編集</h1>
+    <div style="background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); max-width: 600px;">
+        <form action="/edit/{{ incident[0] }}" method="POST">
+            
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">発生日:</label>
+                <input type="date" name="date" value="{{ incident[1] }}" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
 
-<form method="POST">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">場所:</label>
+                <input type="text" name="location" value="{{ incident[2] }}" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
 
-日付
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">件名（内容）:</label>
+                <input type="text" name="title" value="{{ incident[3] }}" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
 
-<input
-type="date"
-name="date"
-value="{{ incident[1] }}">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">重要度:</label>
+                <select name="level" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <option value="軽微" {% if incident[4] == '軽微' %}selected{% endif %}>軽微</option>
+                    <option value="中" {% if incident[4] == '中' %}selected{% endif %}>中</option>
+                    <option value="重大" {% if incident[4] == '重大' %}selected{% endif %}>重大</option>
+                </select>
+            </div>
 
-<br><br>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">詳細:</label>
+                <textarea name="detail" rows="5" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">{{ incident[5] }}</textarea>
+            </div>
 
-タイトル
-
-<input
-type="text"
-name="title"
-value="{{ incident[2] }}">
-
-<br><br>
-
-重要度
-
-<input
-type="text"
-name="level"
-value="{{ incident[3] }}">
-
-<br><br>
-
-詳細
-
-<textarea name="detail">{{ incident[4] }}</textarea>
-
-<br><br>
-
-<button>更新</button>
-
-</form>
+            <button type="submit" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">更新する</button>
+        </form>
+    </div>
 
 </body>
-
 </html>

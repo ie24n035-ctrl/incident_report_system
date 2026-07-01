@@ -1,55 +1,49 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="ja">
 <head>
-
-<title>登録</title>
-
+    <meta charset="UTF-8">
+    <title>新規インシデント登録</title>
 </head>
+<body style="font-family: sans-serif; margin: 40px; background-color: #f4f6f9;">
 
-<body>
+    <h1>➕ 新規インシデント登録</h1>
+    <p><a href="/" style="color: #007bff; text-decoration: none;">⬅️ 一覧に戻る</a></p>
 
-<h1>インシデント登録</h1>
+    <div style="background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); max-width: 600px;">
+        <form action="/add" method="POST">
+            
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">発生日:</label>
+                <input type="date" name="date" min="1000-01-01" max="9999-12-31" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
 
-<form method="POST">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">場所:</label>
+                <input type="text" name="location" placeholder="例: A棟3階 サーバー室" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
 
-日付
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">件名（内容）:</label>
+                <input type="text" name="title" placeholder="例: 回線不通" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
 
-<input type="date" name="date">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">重要度:</label>
+                <select name="level" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <option value="軽微">軽微</option>
+                    <option value="中">中</option>
+                    <option value="重大">重大</option>
+                </select>
+            </div>
 
-<br><br>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 5px;">詳細:</label>
+                <textarea name="detail" rows="5" placeholder="原因や現在の対応状況などを記入" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;"></textarea>
+            </div>
 
-タイトル
-
-<input type="text" name="title">
-
-<br><br>
-
-重要度
-
-<select name="level">
-
-<option value="低">低</option>
-
-<option value="中">中</option>
-
-<option value="重大">重大</option>
-
-</select>
-
-<br><br>
-
-詳細
-
-<textarea name="detail"></textarea>
-
-<br><br>
-
-<button>登録</button>
-
-</form>
+            <button type="submit" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">登録する</button>
+        </form>
+    </div>
 
 </body>
-
 </html>
