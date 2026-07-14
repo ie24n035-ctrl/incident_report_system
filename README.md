@@ -37,20 +37,24 @@
 ## Webアプリの起動方法
 
 ### 1. 仮想環境の作成と有効化
-```bash
 # 仮想環境を作成
 python -m venv venv
+(環境によっては python3 app.py)
 
 
-# 仮想環境を有効化 (Windows / Git Bash の場合)
+# 仮想環境を有効化 
+
+(Windows / Git Bash の場合)
 source venv/Scripts/activate
 
-※ 仮想環境に正しく入ると、Git Bashの画面左端に (venv) と表示されます。
+(Ubuntu の場合)
+source venv/bin/activate
+
+※ 仮想環境に正しく入ると、画面左端に (venv) と表示されます。
 
 
 ## 2.必要なライブラリのインストール
-pip install -r requirements.txt
-(個別にインストールする場合は pip install flask を実行)
+pip install flask
 
 ## 3.アプリの起動
 python3 app.py
